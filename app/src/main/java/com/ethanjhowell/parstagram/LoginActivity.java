@@ -20,6 +20,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (ParseUser.getCurrentUser() != null) {
+            Log.d(TAG, "onCreate: User already logged in");
+            startActivity(MainActivity.getStartIntent(this));
+            finish();
+        }
+
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         Button btLogin = findViewById(R.id.btLogin);
@@ -37,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Log.i(TAG, "loginUser: success for user " + username);
                 startActivity(MainActivity.getStartIntent(this));
+                finish();
             }
         });
     }
