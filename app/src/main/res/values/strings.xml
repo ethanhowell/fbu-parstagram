@@ -3,4 +3,7 @@
     <string name="etUsername_hint">Username</string>
     <string name="etPassword_hint">Password</string>
     <string name="btLogin_text">Login</string>
+    <string name="btTakePicture_text">Take Picture</string>
+    <string name="btSubmit_text">Submit</string>
+    <string name="etCaption_hint">Caption</string>
 </resources>

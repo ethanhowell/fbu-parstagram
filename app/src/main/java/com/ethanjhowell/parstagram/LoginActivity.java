@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (ParseUser.getCurrentUser() != null) {
             Log.d(TAG, "onCreate: User already logged in");
-            startActivity(MainActivity.getStartIntent(this));
+            startActivity(MainActivity.createIntent(this));
             finish();
         }
 
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Unable to login", Toast.LENGTH_SHORT).show();
             } else {
                 Log.i(TAG, "loginUser: success for user " + username);
-                startActivity(MainActivity.getStartIntent(this));
+                startActivity(MainActivity.createIntent(this));
                 finish();
             }
         });
