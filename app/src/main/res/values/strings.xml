@@ -6,4 +6,7 @@
     <string name="btTakePicture_text">Take Picture</string>
     <string name="btSubmit_text">Submit</string>
     <string name="etCaption_hint">Caption</string>
+    <string name="action_profile_title">Profile</string>
+    <string name="action_create_title">Create</string>
+    <string name="action_home_title">Home</string>
 </resources>
