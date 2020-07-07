@@ -11,6 +11,16 @@ public class Post extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_IMAGE = "image";
 
+    public Post() {
+    }
+
+    public Post(String caption, ParseUser user) {
+//        TODO: set the image
+//        setImage(image);
+        setCaption(caption);
+        setUser(user);
+    }
+
     public String getCaption() {
         return getString(KEY_CAPTION);
     }
