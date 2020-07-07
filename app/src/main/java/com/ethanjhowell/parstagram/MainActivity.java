@@ -18,11 +18,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
-import java.net.URI;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getCanonicalName();
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private File photoFile;
 
 
-    public static Intent getStartIntent(Context context) {
+    public static Intent createIntent(Context context) {
         return new Intent(context, MainActivity.class);
     }
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void savePost(View v) {
-        Post post = new Post(etCaption.getText().toString(), ParseUser.getCurrentUser());
+        Post post = new Post(etCaption.getText().toString(), new ParseFile(photoFile), ParseUser.getCurrentUser());
         post.saveInBackground(e -> {
             if (e != null) {
                 Log.e(TAG, "savePost: Error saving post", e);
@@ -96,9 +96,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // by this point we have the camera photo on disk
-                URI takenPhotoUri = photoFile.toURI();
                 Bitmap rawTakenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // TODO: scale bitmap
                 // Load the taken image into a preview
                 ivImagePreview.setImageBitmap(rawTakenImage);
             } else { // Result was a failure

@@ -14,9 +14,8 @@ public class Post extends ParseObject {
     public Post() {
     }
 
-    public Post(String caption, ParseUser user) {
-//        TODO: set the image
-//        setImage(image);
+    public Post(String caption, ParseFile image, ParseUser user) {
+        setImage(image);
         setCaption(caption);
         setUser(user);
     }
