@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -49,13 +51,27 @@ public class MainActivity extends AppCompatActivity {
 
         Button btTakePicture = findViewById(R.id.btTakePicture);
         Button btSubmit = findViewById(R.id.btSubmit);
+        BottomNavigationView bottom_navigation = findViewById(R.id.bottom_navigation);
 
         btSubmit.setOnClickListener(this::savePost);
         btTakePicture.setOnClickListener(this::launchCamera);
+        bottom_navigation.setOnNavigationItemSelectedListener(this::bottomNavigationItemSelect);
 
         query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         queryPosts();
+    }
+
+    private boolean bottomNavigationItemSelect(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_home:
+                break;
+            case R.id.action_create:
+                break;
+            case R.id.action_profile:
+                break;
+        }
+        return true;
     }
 
     private void savePost(View v) {
