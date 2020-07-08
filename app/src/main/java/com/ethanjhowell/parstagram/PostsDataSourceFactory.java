@@ -5,58 +5,58 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
-import androidx.paging.ItemKeyedDataSource;
+import androidx.paging.PositionalDataSource;
 
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 
-public class PostsDataSourceFactory extends DataSource.Factory<String, Post> {
+import java.util.List;
+
+public class PostsDataSourceFactory extends DataSource.Factory<Integer, Post> {
     private static final String TAG = PostsDataSourceFactory.class.getCanonicalName();
     private MutableLiveData<PostDataSource> postLiveData;
 
     @NonNull
     @Override
-    public DataSource<String, Post> create() {
+    public DataSource<Integer, Post> create() {
         PostDataSource postDataSource = new PostDataSource();
         postLiveData = new MutableLiveData<>();
         postLiveData.postValue(postDataSource);
         return postDataSource;
     }
 
-    private static class PostDataSource extends ItemKeyedDataSource<String, Post> {
-        private ParseQuery<Post> query;
-
-        public PostDataSource() {
-            query = ParseQuery.getQuery(Post.class);
+    private static class PostDataSource extends PositionalDataSource<Post> {
+        private ParseQuery<Post> generateBasicQuery(int limit, int startPos) {
+            ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
             query.include(Post.KEY_USER);
             // order posts by creation date (newest first)
             query.addDescendingOrder(Post.KEY_CREATED_KEY);
+            query.setLimit(limit);
+            query.setSkip(startPos);
+            return query;
         }
 
         @Override
-        public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<Post> callback) {
-            query.setLimit(params.requestedLoadSize);
-            query.findInBackground((posts, e) -> {
-                if (e != null) {
-                    Log.e(TAG, "queryPosts: problem getting posts", e);
-                } else {
-                    callback.onResult(posts);
-                }
-            });
+        public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<Post> callback) {
+            ParseQuery<Post> query = generateBasicQuery(params.requestedLoadSize, params.requestedStartPosition);
+            try {
+                int count = query.count();
+                List<Post> posts = query.find();
+                callback.onResult(posts, params.requestedStartPosition, count);
+            } catch (ParseException e) {
+                Log.e(TAG, "queryPosts: problem getting posts", e);
+            }
         }
 
         @Override
-        public void loadAfter(@NonNull LoadParams<String> params, @NonNull LoadCallback<Post> callback) {
+        public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<Post> callback) {
+            ParseQuery<Post> query = generateBasicQuery(params.loadSize, params.startPosition);
+            try {
+                callback.onResult(query.find());
+            } catch (ParseException e) {
+                Log.e(TAG, "queryPosts: problem getting posts", e);
+            }
         }
 
-        @Override
-        public void loadBefore(@NonNull LoadParams<String> params, @NonNull LoadCallback<Post> callback) {
-
-        }
-
-        @NonNull
-        @Override
-        public String getKey(@NonNull Post item) {
-            return item.getObjectId();
-        }
     }
 }
