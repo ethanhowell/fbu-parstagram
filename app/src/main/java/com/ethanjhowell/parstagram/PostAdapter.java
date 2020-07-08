@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -73,6 +74,7 @@ public class PostAdapter extends PagedListAdapter<Post, PostAdapter.ViewHolder> 
             tvCaption.setText(post.getCaption());
             Glide.with(context)
                     .load(post.getImage().getUrl())
+                    .transform(new CenterInside())
                     .into(ivImage);
         }
     }
