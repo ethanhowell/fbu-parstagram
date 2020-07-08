@@ -1,6 +1,7 @@
 package com.ethanjhowell.parstagram;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PostAdapter extends PagedListAdapter<Post, PostAdapter.ViewHolder> {
+    private static final String TAG = PostAdapter.class.getCanonicalName();
     public static final DiffUtil.ItemCallback<Post> DIFF_CALLBACK =
             new DiffUtil.ItemCallback<Post>() {
                 @Override
@@ -71,6 +73,7 @@ public class PostAdapter extends PagedListAdapter<Post, PostAdapter.ViewHolder> 
         }
 
         public void bind(Post post) {
+            Log.d(TAG, "bind: binding post " + post.getObjectId());
             String caption = post.getCaption();
             if (caption.length() == 0) {
                 tvCaption.setVisibility(View.GONE);

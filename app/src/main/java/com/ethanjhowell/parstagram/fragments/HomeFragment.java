@@ -13,6 +13,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ethanjhowell.parstagram.Post;
 import com.ethanjhowell.parstagram.PostAdapter;
@@ -21,6 +22,7 @@ import com.ethanjhowell.parstagram.R;
 
 public class HomeFragment extends Fragment {
     private PostAdapter adapter;
+    private PostsDataSourceFactory factory;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -37,17 +39,21 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adapter = new PostAdapter();
-        downloadPosts();
+        factory = new PostsDataSourceFactory();
+
         RecyclerView rvPosts = view.findViewById(R.id.rvPosts);
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(view.getContext()));
-    }
 
-    private void downloadPosts() {
+        SwipeRefreshLayout swipeContainer = view.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(() -> factory.postLiveData.getValue().invalidate());
+
         PagedList.Config build = new PagedList.Config.Builder().setPageSize(20).build();
-        PostsDataSourceFactory factory = new PostsDataSourceFactory();
         LiveData<PagedList<Post>> posts = new LivePagedListBuilder<>(factory, build).build();
 
-        posts.observe(this, list -> adapter.submitList(list));
+        posts.observe(this, list -> {
+            adapter.submitList(list);
+            swipeContainer.setRefreshing(false);
+        });
     }
 }

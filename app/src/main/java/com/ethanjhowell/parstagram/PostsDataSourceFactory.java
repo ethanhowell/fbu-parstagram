@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PostsDataSourceFactory extends DataSource.Factory<Integer, Post> {
     private static final String TAG = PostsDataSourceFactory.class.getCanonicalName();
-    private MutableLiveData<PostDataSource> postLiveData;
+    public MutableLiveData<PostDataSource> postLiveData;
 
     @NonNull
     @Override
@@ -25,7 +25,7 @@ public class PostsDataSourceFactory extends DataSource.Factory<Integer, Post> {
         return postDataSource;
     }
 
-    private static class PostDataSource extends PositionalDataSource<Post> {
+    public static class PostDataSource extends PositionalDataSource<Post> {
         private ParseQuery<Post> generateBasicQuery(int limit, int startPos) {
             ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
             query.include(Post.KEY_USER);
