@@ -62,11 +62,13 @@ public class Post extends ParseObject {
         Calendar now = Calendar.getInstance();
         long difference = now.getTimeInMillis() - created.getTime();
         if (difference < DateUtils.MINUTE_IN_MILLIS)
-            return String.format("%ss", TimeUnit.MILLISECONDS.toSeconds(difference));
+            return String.format(Locale.US, "%d seconds ago", TimeUnit.MILLISECONDS.toSeconds(difference));
         else if (difference < DateUtils.HOUR_IN_MILLIS)
-            return String.format("%sm", TimeUnit.MILLISECONDS.toMinutes(difference));
+            return String.format(Locale.US, "%d minutes ago", TimeUnit.MILLISECONDS.toMinutes(difference));
         else if (difference < DateUtils.DAY_IN_MILLIS)
-            return String.format("%sh", TimeUnit.MILLISECONDS.toHours(difference));
+            return String.format(Locale.US, "%d hours ago", TimeUnit.MILLISECONDS.toHours(difference));
+        else if (difference < DateUtils.WEEK_IN_MILLIS)
+            return String.format(Locale.US, "%d days ago", TimeUnit.MILLISECONDS.toDays(difference));
         else {
             Calendar then = Calendar.getInstance();
             then.setTime(created);
