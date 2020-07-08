@@ -73,7 +73,7 @@ public class PostAdapter extends PagedListAdapter<Post, PostAdapter.ViewHolder> 
         }
 
         public void bind(Post post) {
-            Log.d(TAG, "bind: binding post " + post.getObjectId());
+            Log.d(TAG, "bind: binding post " + post.getObjectId() + post.getCreatedAt());
             String caption = post.getCaption();
             if (caption.length() == 0) {
                 tvCaption.setVisibility(View.GONE);
