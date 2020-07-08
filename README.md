@@ -2,14 +2,14 @@
 
 **Parstagram** is a photo sharing app using Parse as its backend.
 
-Time spent: **8** hours spent in total
+Time spent: **10** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
 - [X] User sees app icon in home screen.
-- [ ] User can sign up to create a new account using Parse authentication
+- [X] User can sign up to create a new account using Parse authentication
 - [X] User can log in and log out of his or her account
     - [X] User can log out of his or her account
     - [X] User can log in of his or her account
