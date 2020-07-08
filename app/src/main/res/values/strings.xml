@@ -2,7 +2,7 @@
     <string name="app_name">Parstagram</string>
     <string name="etUsername_hint">Username</string>
     <string name="etPassword_hint">Password</string>
-    <string name="btLogin_text">Login</string>
+    <string name="btLogin_text">Log In</string>
     <string name="btTakePicture_text">Take Picture</string>
     <string name="btSubmit_text">Submit</string>
     <string name="etCaption_hint">Caption</string>
@@ -13,4 +13,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="post_image">post image</string>
     <string name="btLogout_text">Logout</string>
+    <string name="tvSignUp_text">Sign up</string>
 </resources>
