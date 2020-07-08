@@ -40,13 +40,11 @@ public class HomeFragment extends Fragment {
         downloadPosts();
         RecyclerView rvPosts = view.findViewById(R.id.rvPosts);
         rvPosts.setAdapter(adapter);
-        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
-        manager.setReverseLayout(true);
-        rvPosts.setLayoutManager(manager);
+        rvPosts.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
     private void downloadPosts() {
-        PagedList.Config build = new PagedList.Config.Builder().build();
+        PagedList.Config build = new PagedList.Config.Builder().setPageSize(20).build();
         PostsDataSourceFactory factory = new PostsDataSourceFactory();
         LiveData<PagedList<Post>> posts = new LivePagedListBuilder<>(factory, build).build();
 

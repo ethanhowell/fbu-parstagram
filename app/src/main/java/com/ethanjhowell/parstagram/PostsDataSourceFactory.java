@@ -28,10 +28,13 @@ public class PostsDataSourceFactory extends DataSource.Factory<String, Post> {
         public PostDataSource() {
             query = ParseQuery.getQuery(Post.class);
             query.include(Post.KEY_USER);
+            // order posts by creation date (newest first)
+            query.addDescendingOrder(Post.KEY_CREATED_KEY);
         }
 
         @Override
         public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<Post> callback) {
+            query.setLimit(params.requestedLoadSize);
             query.findInBackground((posts, e) -> {
                 if (e != null) {
                     Log.e(TAG, "queryPosts: problem getting posts", e);
@@ -43,7 +46,6 @@ public class PostsDataSourceFactory extends DataSource.Factory<String, Post> {
 
         @Override
         public void loadAfter(@NonNull LoadParams<String> params, @NonNull LoadCallback<Post> callback) {
-
         }
 
         @Override
