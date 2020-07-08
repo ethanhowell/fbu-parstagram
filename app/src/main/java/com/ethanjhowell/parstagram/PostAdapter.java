@@ -71,7 +71,13 @@ public class PostAdapter extends PagedListAdapter<Post, PostAdapter.ViewHolder> 
         }
 
         public void bind(Post post) {
-            tvCaption.setText(post.getCaption());
+            String caption = post.getCaption();
+            if (caption.length() == 0) {
+                tvCaption.setVisibility(View.GONE);
+            } else {
+                tvCaption.setVisibility(View.VISIBLE);
+                tvCaption.setText(post.getCaption());
+            }
             Glide.with(context)
                     .load(post.getImage().getUrl())
                     .transform(new CenterInside())
