@@ -70,7 +70,6 @@ public class CreateFragment extends Fragment {
 
         query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        queryPosts();
     }
 
     private void savePost(View v) {
@@ -135,16 +134,4 @@ public class CreateFragment extends Fragment {
         return new File(mediaStorageDir.getPath() + File.separator + PHOTO_FILE_NAME);
     }
 
-    private void queryPosts() {
-        query.findInBackground((posts, e) -> {
-            if (e != null) {
-                Log.e(TAG, "queryPosts: problem getting posts", e);
-                Toast.makeText(context, "Something went wrong fetching posts", Toast.LENGTH_SHORT).show();
-            } else {
-                for (Post p : posts) {
-                    Log.i(TAG, String.format("queryPosts: Username: %s, Caption: %s", p.getUser().getUsername(), p.getCaption()));
-                }
-            }
-        });
-    }
 }
