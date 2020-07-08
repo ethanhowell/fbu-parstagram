@@ -65,22 +65,28 @@ public class PostAdapter extends PagedListAdapter<Post, PostAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivImage;
         private TextView tvCaption;
+        private TextView tvUsernameDetail;
+        private TextView tvUsernameHero;
+        private TextView tvRelativeTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvCaption = itemView.findViewById(R.id.tvCaption);
+            tvUsernameDetail = itemView.findViewById(R.id.tvUsernameDetail);
+            tvUsernameHero = itemView.findViewById(R.id.tvUsernameHero);
+            tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
         }
 
         public void bind(Post post) {
-            Log.d(TAG, "bind: binding post " + post.getObjectId());
-            String caption = post.getCaption();
-            if (caption.length() == 0) {
-                tvCaption.setVisibility(View.GONE);
-            } else {
-                tvCaption.setVisibility(View.VISIBLE);
-                tvCaption.setText(post.getCaption());
-            }
+            Log.d(TAG, "bind: binding post " + post.getObjectId() + " " + post.getRelativeCreatedAt());
+            tvUsernameHero.setText(post.getUser().getUsername());
+            tvUsernameDetail.setText(post.getUser().getUsername());
+
+            tvCaption.setText(post.getCaption());
+
+            tvRelativeTime.setText(post.getRelativeCreatedAt());
+
             Glide.with(context)
                     .load(post.getImage().getUrl())
                     .transform(new CenterInside())
