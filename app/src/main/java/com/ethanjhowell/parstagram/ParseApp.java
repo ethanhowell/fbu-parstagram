@@ -33,6 +33,6 @@ public class ParseApp extends Application {
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("ethanhowell-parstagram") // should correspond to APP_ID env variable
                 .clientBuilder(builder)
-                .server("http://ethanhowell-parstagram.herokuapp.com/parse").build());
+                .server("https://ethanhowell-parstagram.herokuapp.com/parse").build());
     }
 }

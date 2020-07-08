@@ -2,7 +2,7 @@
 
 **Parstagram** is a photo sharing app using Parse as its backend.
 
-Time spent: **4** hours spent in total
+Time spent: **7** hours spent in total
 
 ## User Stories
 
@@ -15,7 +15,7 @@ The following **required** functionality is completed:
     - [X] User can log in of his or her account
 - [X] The current signed in user is persisted across app restarts
 - [X] User can take a photo, add a caption, and post it to "Instagram"
-- [ ] User can view the last 20 posts submitted to "Instagram"
+- [X] User can view the last 20 posts submitted to "Instagram"
 - [ ] User can pull to refresh the last 20 posts submitted to "Instagram"
 - [ ] User can tap a post to view post details, including timestamp and caption.
 
@@ -24,7 +24,7 @@ The following **stretch** features are implemented:
 - [ ] Style the login page to look like the real Instagram login page.
 - [ ] Style the feed to look like the real Instagram feed.
 - [ ] User should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View.
-- [ ] User can load more posts once he or she reaches the bottom of the feed using endless scrolling.
+- [X] User can load more posts once he or she reaches the bottom of the feed using endless scrolling.
 - [ ] Show the username and creation time for each post
 - [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
 - User Profiles:
