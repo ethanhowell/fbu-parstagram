@@ -21,11 +21,15 @@ import com.ethanjhowell.parstagram.models.Post;
 import com.ethanjhowell.parstagram.proxy.PostQuery;
 import com.ethanjhowell.parstagram.proxy.PostsDataSourceFactory;
 
-public class HomeFragment extends Fragment {
-    private PostAdapter adapter;
-    private PostsDataSourceFactory<PostQuery> factory;
+import java.util.Objects;
 
-    public HomeFragment() {
+public abstract class FeedFragment<Q extends PostQuery> extends Fragment {
+    RecyclerView rvPosts;
+    SwipeRefreshLayout swipeContainer;
+    private PostAdapter adapter = new PostAdapter();
+    private PostsDataSourceFactory<Q> factory = new PostsDataSourceFactory<>();
+
+    public FeedFragment() {
         // Required empty public constructor
     }
 
@@ -33,21 +37,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_feed, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        adapter = new PostAdapter();
-        factory = new PostsDataSourceFactory<>();
-
-        RecyclerView rvPosts = view.findViewById(R.id.rvPosts);
+    protected void loadFeed(View view) {
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        SwipeRefreshLayout swipeContainer = view.findViewById(R.id.swipeContainer);
-        swipeContainer.setOnRefreshListener(() -> factory.postLiveData.getValue().invalidate());
+        swipeContainer.setOnRefreshListener(() -> Objects.requireNonNull(factory.postLiveData.getValue()).invalidate());
 
         PagedList.Config build = new PagedList.Config.Builder().setPageSize(20).build();
         LiveData<PagedList<Post>> posts = new LivePagedListBuilder<>(factory, build).build();
@@ -56,5 +53,12 @@ public class HomeFragment extends Fragment {
             adapter.submitList(list);
             swipeContainer.setRefreshing(false);
         });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rvPosts = view.findViewById(R.id.rvPosts);
+        swipeContainer = view.findViewById(R.id.swipeContainer);
     }
 }
