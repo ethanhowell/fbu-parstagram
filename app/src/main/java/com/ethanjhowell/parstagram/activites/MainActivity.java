@@ -1,4 +1,4 @@
-package com.ethanjhowell.parstagram;
+package com.ethanjhowell.parstagram.activites;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.ethanjhowell.parstagram.R;
 import com.ethanjhowell.parstagram.fragments.CreateFragment;
 import com.ethanjhowell.parstagram.fragments.HomeFragment;
 import com.ethanjhowell.parstagram.fragments.ProfileFragment;

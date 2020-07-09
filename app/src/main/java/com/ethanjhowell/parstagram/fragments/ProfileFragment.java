@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.ethanjhowell.parstagram.LoginActivity;
 import com.ethanjhowell.parstagram.R;
+import com.ethanjhowell.parstagram.activites.LoginActivity;
 import com.parse.ParseUser;
 
 

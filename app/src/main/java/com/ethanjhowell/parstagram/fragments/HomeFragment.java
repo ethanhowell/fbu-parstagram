@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.ethanjhowell.parstagram.Post;
-import com.ethanjhowell.parstagram.PostAdapter;
-import com.ethanjhowell.parstagram.PostQuery;
-import com.ethanjhowell.parstagram.PostsDataSourceFactory;
 import com.ethanjhowell.parstagram.R;
+import com.ethanjhowell.parstagram.adapters.PostAdapter;
+import com.ethanjhowell.parstagram.models.Post;
+import com.ethanjhowell.parstagram.proxy.PostQuery;
+import com.ethanjhowell.parstagram.proxy.PostsDataSourceFactory;
 
 public class HomeFragment extends Fragment {
     private PostAdapter adapter;

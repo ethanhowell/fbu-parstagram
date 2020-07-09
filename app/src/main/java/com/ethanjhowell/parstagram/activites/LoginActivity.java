@@ -1,4 +1,4 @@
-package com.ethanjhowell.parstagram;
+package com.ethanjhowell.parstagram.activites;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ethanjhowell.parstagram.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 

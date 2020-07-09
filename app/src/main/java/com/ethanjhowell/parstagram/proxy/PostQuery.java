@@ -1,5 +1,6 @@
-package com.ethanjhowell.parstagram;
+package com.ethanjhowell.parstagram.proxy;
 
+import com.ethanjhowell.parstagram.models.Post;
 import com.parse.ParseQuery;
 
 public interface PostQuery {

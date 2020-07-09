@@ -1,4 +1,4 @@
-package com.ethanjhowell.parstagram;
+package com.ethanjhowell.parstagram.proxy;
 
 import android.util.Log;
 
@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PositionalDataSource;
 
+import com.ethanjhowell.parstagram.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 

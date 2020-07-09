@@ -22,8 +22,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.ethanjhowell.parstagram.Post;
 import com.ethanjhowell.parstagram.R;
+import com.ethanjhowell.parstagram.models.Post;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
