@@ -24,10 +24,10 @@ import com.ethanjhowell.parstagram.proxy.PostsDataSourceFactory;
 import java.util.Objects;
 
 public abstract class FeedFragment<Q extends PostQuery> extends Fragment {
-    RecyclerView rvPosts;
-    SwipeRefreshLayout swipeContainer;
-    private PostAdapter adapter = new PostAdapter();
-    private PostsDataSourceFactory<Q> factory = new PostsDataSourceFactory<>();
+    protected RecyclerView rvPosts;
+    protected SwipeRefreshLayout swipeContainer;
+    protected PostAdapter adapter = new PostAdapter();
+    protected PostsDataSourceFactory<Q> factory = new PostsDataSourceFactory<>();
 
     public FeedFragment() {
         // Required empty public constructor
