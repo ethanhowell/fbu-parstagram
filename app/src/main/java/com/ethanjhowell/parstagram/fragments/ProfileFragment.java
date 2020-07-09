@@ -8,14 +8,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.ethanjhowell.parstagram.R;
 import com.ethanjhowell.parstagram.activites.LoginActivity;
+import com.ethanjhowell.parstagram.proxy.PostUserRestrictedQuery;
 import com.parse.ParseUser;
 
+import java.util.Objects;
 
-public class ProfileFragment extends Fragment {
+
+public class ProfileFragment extends FeedFragment<PostUserRestrictedQuery> {
 
     // Required empty public constructor
     public ProfileFragment() {
@@ -30,7 +32,7 @@ public class ProfileFragment extends Fragment {
         view.findViewById(R.id.btLogout).setOnClickListener(v -> {
             ParseUser.logOut();
             startActivity(new Intent(view.getContext(), LoginActivity.class));
-            getActivity().finish();
+            Objects.requireNonNull(getActivity()).finish();
         });
         return view;
     }
@@ -38,5 +40,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadFeed(view);
     }
 }
