@@ -18,16 +18,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.ethanjhowell.parstagram.R;
 import com.ethanjhowell.parstagram.adapters.PostAdapter;
 import com.ethanjhowell.parstagram.models.Post;
-import com.ethanjhowell.parstagram.proxy.PostQuery;
+import com.ethanjhowell.parstagram.proxy.PostQueryFactory;
 import com.ethanjhowell.parstagram.proxy.PostsDataSourceFactory;
 
 import java.util.Objects;
 
-public abstract class FeedFragment<Q extends PostQuery> extends Fragment {
+public abstract class FeedFragment extends Fragment {
     protected RecyclerView rvPosts;
     protected SwipeRefreshLayout swipeContainer;
     protected PostAdapter adapter = new PostAdapter();
-    protected PostsDataSourceFactory<Q> factory = new PostsDataSourceFactory<>();
+    protected PostsDataSourceFactory factory = new PostsDataSourceFactory(new PostQueryFactory());
 
     public FeedFragment() {
         // Required empty public constructor

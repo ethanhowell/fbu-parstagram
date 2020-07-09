@@ -16,13 +16,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.ethanjhowell.parstagram.R;
 import com.ethanjhowell.parstagram.activites.LoginActivity;
 import com.ethanjhowell.parstagram.models.Post;
-import com.ethanjhowell.parstagram.proxy.PostUserRestrictedQuery;
+import com.ethanjhowell.parstagram.proxy.PostUserRestrictedQueryFactory;
+import com.ethanjhowell.parstagram.proxy.PostsDataSourceFactory;
 import com.parse.ParseUser;
 
 import java.util.Objects;
 
 
-public class ProfileFragment extends FeedFragment<PostUserRestrictedQuery> {
+public class ProfileFragment extends FeedFragment {
+    protected PostsDataSourceFactory factory = new PostsDataSourceFactory(new PostUserRestrictedQueryFactory());
 
     // Required empty public constructor
     public ProfileFragment() {
