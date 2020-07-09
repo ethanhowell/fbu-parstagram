@@ -6,9 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.ethanjhowell.parstagram.proxy.PostQuery;
-
-public class HomeFragment extends FeedFragment<PostQuery> {
+public class HomeFragment extends FeedFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

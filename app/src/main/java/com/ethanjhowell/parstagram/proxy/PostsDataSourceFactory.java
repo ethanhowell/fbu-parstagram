@@ -13,9 +13,14 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class PostsDataSourceFactory<Q extends PostQuery> extends DataSource.Factory<Integer, Post> {
+public class PostsDataSourceFactory extends DataSource.Factory<Integer, Post> {
     private static final String TAG = PostsDataSourceFactory.class.getCanonicalName();
     public MutableLiveData<PostDataSource> postLiveData;
+    private PostQueryFactory pqFactory;
+
+    public PostsDataSourceFactory(PostQueryFactory pqFactory) {
+        this.pqFactory = pqFactory;
+    }
 
     @NonNull
     @Override
@@ -29,7 +34,7 @@ public class PostsDataSourceFactory<Q extends PostQuery> extends DataSource.Fact
     public class PostDataSource extends PositionalDataSource<Post> {
         @Override
         public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<Post> callback) {
-            ParseQuery<Post> query = Q.query(params.requestedLoadSize, params.requestedStartPosition);
+            ParseQuery<Post> query = pqFactory.query(params.requestedLoadSize, params.requestedStartPosition);
             try {
                 int count = query.count();
                 List<Post> posts = query.find();
@@ -41,7 +46,7 @@ public class PostsDataSourceFactory<Q extends PostQuery> extends DataSource.Fact
 
         @Override
         public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<Post> callback) {
-            ParseQuery<Post> query = Q.query(params.loadSize, params.startPosition);
+            ParseQuery<Post> query = pqFactory.query(params.loadSize, params.startPosition);
             try {
                 callback.onResult(query.find());
             } catch (ParseException e) {
