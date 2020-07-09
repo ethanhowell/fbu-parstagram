@@ -1,6 +1,5 @@
 package com.ethanjhowell.parstagram.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,44 +7,42 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ethanjhowell.parstagram.R;
-import com.ethanjhowell.parstagram.activites.LoginActivity;
+import com.ethanjhowell.parstagram.adapters.PostAdapter;
 import com.ethanjhowell.parstagram.models.Post;
-import com.ethanjhowell.parstagram.proxy.PostUserRestrictedQuery;
-import com.parse.ParseUser;
+import com.ethanjhowell.parstagram.proxy.PostQuery;
+import com.ethanjhowell.parstagram.proxy.PostsDataSourceFactory;
 
 import java.util.Objects;
 
+public abstract class FeedFragment<Q extends PostQuery> extends Fragment {
+    protected RecyclerView rvPosts;
+    protected SwipeRefreshLayout swipeContainer;
+    protected PostAdapter adapter = new PostAdapter();
+    protected PostsDataSourceFactory<Q> factory = new PostsDataSourceFactory<>();
 
-public class ProfileFragment extends FeedFragment<PostUserRestrictedQuery> {
-
-    // Required empty public constructor
-    public ProfileFragment() {
+    public FeedFragment() {
+        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        view.findViewById(R.id.btLogout).setOnClickListener(v -> {
-            ParseUser.logOut();
-            startActivity(new Intent(view.getContext(), LoginActivity.class));
-            Objects.requireNonNull(getActivity()).finish();
-        });
-        return view;
+        return inflater.inflate(R.layout.fragment_feed, container, false);
     }
-
 
     protected void loadFeed(View view) {
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
+        rvPosts.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         swipeContainer.setOnRefreshListener(() -> Objects.requireNonNull(factory.postLiveData.getValue()).invalidate());
 
@@ -61,6 +58,7 @@ public class ProfileFragment extends FeedFragment<PostUserRestrictedQuery> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadFeed(view);
+        rvPosts = view.findViewById(R.id.rvPosts);
+        swipeContainer = view.findViewById(R.id.swipeContainer);
     }
 }

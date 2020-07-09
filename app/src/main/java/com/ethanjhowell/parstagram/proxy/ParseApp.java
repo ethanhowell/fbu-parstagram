@@ -1,7 +1,8 @@
-package com.ethanjhowell.parstagram;
+package com.ethanjhowell.parstagram.proxy;
 
 import android.app.Application;
 
+import com.ethanjhowell.parstagram.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

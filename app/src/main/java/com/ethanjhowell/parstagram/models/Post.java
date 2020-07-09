@@ -1,4 +1,4 @@
-package com.ethanjhowell.parstagram;
+package com.ethanjhowell.parstagram.models;
 
 import android.text.format.DateUtils;
 

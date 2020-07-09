@@ -1,4 +1,4 @@
-package com.ethanjhowell.parstagram;
+package com.ethanjhowell.parstagram.proxy;
 
 import android.util.Log;
 
@@ -7,12 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PositionalDataSource;
 
+import com.ethanjhowell.parstagram.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class PostsDataSourceFactory extends DataSource.Factory<Integer, Post> {
+public class PostsDataSourceFactory<Q extends PostQuery> extends DataSource.Factory<Integer, Post> {
     private static final String TAG = PostsDataSourceFactory.class.getCanonicalName();
     public MutableLiveData<PostDataSource> postLiveData;
 
@@ -25,20 +26,10 @@ public class PostsDataSourceFactory extends DataSource.Factory<Integer, Post> {
         return postDataSource;
     }
 
-    public static class PostDataSource extends PositionalDataSource<Post> {
-        private ParseQuery<Post> generateBasicQuery(int limit, int startPos) {
-            ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-            query.include(Post.KEY_USER);
-            // order posts by creation date (newest first)
-            query.addDescendingOrder(Post.KEY_CREATED_KEY);
-            query.setLimit(limit);
-            query.setSkip(startPos);
-            return query;
-        }
-
+    public class PostDataSource extends PositionalDataSource<Post> {
         @Override
         public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<Post> callback) {
-            ParseQuery<Post> query = generateBasicQuery(params.requestedLoadSize, params.requestedStartPosition);
+            ParseQuery<Post> query = Q.query(params.requestedLoadSize, params.requestedStartPosition);
             try {
                 int count = query.count();
                 List<Post> posts = query.find();
@@ -50,7 +41,7 @@ public class PostsDataSourceFactory extends DataSource.Factory<Integer, Post> {
 
         @Override
         public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<Post> callback) {
-            ParseQuery<Post> query = generateBasicQuery(params.loadSize, params.startPosition);
+            ParseQuery<Post> query = Q.query(params.loadSize, params.startPosition);
             try {
                 callback.onResult(query.find());
             } catch (ParseException e) {
