@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
@@ -93,6 +94,9 @@ public class PostAdapter extends PagedListAdapter<Post, PostAdapter.ViewHolder> 
                     .load(post.getImage().getUrl())
                     .transform(new CenterInside())
                     .into(ivImage);
+
+            ivImage.setOnClickListener(view -> Toast.makeText(context, post.getCreatedAt().toString(), Toast.LENGTH_SHORT).show());
         }
+
     }
 }
