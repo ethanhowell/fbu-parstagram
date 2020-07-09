@@ -17,12 +17,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ethanjhowell.parstagram.Post;
 import com.ethanjhowell.parstagram.PostAdapter;
+import com.ethanjhowell.parstagram.PostQuery;
 import com.ethanjhowell.parstagram.PostsDataSourceFactory;
 import com.ethanjhowell.parstagram.R;
 
 public class HomeFragment extends Fragment {
     private PostAdapter adapter;
-    private PostsDataSourceFactory factory;
+    private PostsDataSourceFactory<PostQuery> factory;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adapter = new PostAdapter();
-        factory = new PostsDataSourceFactory();
+        factory = new PostsDataSourceFactory<>();
 
         RecyclerView rvPosts = view.findViewById(R.id.rvPosts);
         rvPosts.setAdapter(adapter);
