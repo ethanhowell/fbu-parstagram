@@ -1,5 +1,6 @@
 package com.ethanjhowell.parstagram.activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ethanjhowell.parstagram.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.facebook.ParseFacebookUtils;
+
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getCanonicalName();
@@ -37,6 +41,25 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(v -> loginUser(etUsername.getText().toString(), etPassword.getText().toString()));
         tvSignUp.setOnClickListener(v -> registerUser(etUsername.getText().toString(), etPassword.getText().toString()));
 
+
+        findViewById(R.id.btFacebookLogin).setOnClickListener(v -> ParseFacebookUtils.logInWithReadPermissionsInBackground(this, Arrays.asList(), (user, e) -> {
+            if (user == null) {
+                Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
+            } else {
+                if (user.isNew()) {
+                    Log.d(TAG, "User signed up and logged in through Facebook!");
+                }
+                Log.d(TAG, "User logged in through Facebook!");
+                startActivity(MainActivity.createIntent(this));
+                finish();
+            }
+        }));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 
     private void registerUser(String username, String password) {

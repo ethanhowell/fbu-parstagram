@@ -22,7 +22,6 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/post_image"
         android:maxWidth="1080px"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvUsernameHero"

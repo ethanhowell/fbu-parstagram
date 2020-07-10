@@ -9,9 +9,10 @@
     <string name="action_profile_title">Profile</string>
     <string name="action_create_title">Create</string>
     <string name="action_home_title">Home</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="post_image">post image</string>
     <string name="btLogout_text">Logout</string>
     <string name="tvSignUp_text">Sign up</string>
+    <string name="facebook_app_id">598122617803842</string>
+    <string name="fb_login_protocol_scheme">fb598122617803842</string>
+
 </resources>
